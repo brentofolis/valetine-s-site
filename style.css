@@ -22,3 +22,77 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
+/* 🎞️ GIF styling */
+.gif {
+  width: 220px;
+  max-width: 70vw;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Slide GIF away after YES */
+.gif.slide-out {
+  transform: translateY(-80px) scale(0.8);
+  opacity: 0;
+}
+
+/* 🎆 Fireworks overlay */
+#fireworks {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: none;
+  background: radial-gradient(circle, #ff69b4, #ff1493, transparent);
+  animation: fireworks 1s infinite alternate;
+}
+
+@keyframes fireworks {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* 💖 Floating hearts */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 24px;
+  animation: floatUp 4s linear forwards;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* 🖼️ Your photo floating in */
+#usPhoto {
+  position: fixed;
+  bottom: -300px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  width: 220px;
+  max-width: 70vw;
+  border-radius: 20px;
+  display: none;
+  opacity: 0;
+  animation: photoUp 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+@keyframes photoUp {
+  to {
+    bottom: 45%;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
