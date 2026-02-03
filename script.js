@@ -19,26 +19,37 @@ const noPrompts = [
 ];
 
 yesBtn.addEventListener("click", () => {
+  // Grow YES
   yesSize += 0.3;
   yesBtn.style.transform = `scale(${yesSize})`;
 
-  // Final YES state
-  title.textContent = "YAAAY!!! 🎉💖";
-  question.textContent = "Happy Valentine’s Day 🥰";
-
-  // Fireworks on
-  fireworks.style.display = "block";
-
-  // Slide the gif away
+  // Slide the GIF away
   if (gif) gif.classList.add("slide-out");
 
-  // Show your picture floating up (after gif slides away)
-  setTimeout(() => {
-    usPhoto.style.display = "block";
-  }, 800);
+  // Fireworks off (background only if still present)
+  if (fireworks) fireworks.style.display = "none";
 
-  // Hide NO button
-  noBtn.style.display = "none";
+  // After GIF slides, show photo and place text under it
+  setTimeout(() => {
+    const card = document.getElementById("card");
+
+    // Move photo into the card (above text)
+    card.insertBefore(usPhoto, title);
+
+    // Show photo (CSS animation will run)
+    usPhoto.style.display = "block";
+
+    // Update text
+    title.textContent = "YAAAY!!! 🎉💖";
+    question.textContent = "Happy Valentine’s Day 🥰";
+
+    // Ensure text is directly under the photo
+    card.insertBefore(title, question);
+    card.insertBefore(question, card.querySelector(".buttons"));
+
+    // Hide NO button now that YES is accepted
+    noBtn.style.display = "none";
+  }, 300); // short delay feels snappy and clean
 });
 
 noBtn.addEventListener("click", () => {
@@ -59,4 +70,3 @@ noBtn.addEventListener("click", () => {
   yesSize += 0.2;
   yesBtn.style.transform = `scale(${yesSize})`;
 });
-
