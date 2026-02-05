@@ -1,69 +1,101 @@
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-const question = document.getElementById("question");
-const title = document.getElementById("title");
-const fireworks = document.getElementById("fireworks");
-const usPhoto = document.getElementById("usPhoto");
-const gif = document.getElementById("gif");
+/* 🌸 Page background */
+body {
+  background: linear-gradient(to bottom right, #ffb6c1, #ff69b4);
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
 
-let yesSize = 1;
-let noSize = 1;
-let noClicks = 0;
+/* 💌 Main card */
+.card {
+  background: white;
+  padding: 30px 25px;
+  border-radius: 20px;
+  text-align: center;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
 
-const noPrompts = [
-  "Are you sure? 🥺",
-  "Are you really sure?? 😭",
-  "Really really sure?? 😩",
-  "Okay now you’re just being mean 😔",
-  "Last chance… 😢"
-];
+/* 🎞️ GIF styling */
+.gif {
+  width: 220px;
+  max-width: 70vw;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
 
-yesBtn.addEventListener("click", () => {
-  yesSize += 0.3;
-  yesBtn.style.transform = `scale(${yesSize})`;
+/* Slide GIF away after YES */
+.gif.slide-out {
+  transform: translateY(-40px) scale(0.85);
+  opacity: 0;
+}
 
-  // Slide the gif away
-  if (gif) gif.classList.add("slide-out");
+/* 📝 Text styling */
+h1 {
+  margin: 10px 0 5px;
+  font-size: 1.6rem;
+}
 
-  // Short delay to let gif slide before showing photo
-  setTimeout(() => {
+p {
+  margin: 0 0 15px;
+  font-size: 1rem;
+  color: #333;
+}
 
-    // Hide fireworks container (no overlay background)
-    fireworks.style.display = "none";
+/* 🔘 Buttons container */
+.buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
 
-    // Show your picture
-    usPhoto.classList.add("show");
+/* 🔘 Buttons */
+button {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
 
-    // Change title and question text **under** the photo
-    title.textContent = "YAAAY!!! 🎉💖";
-    question.textContent = "Happy Valentine’s Day 🥰";
+#yesBtn {
+  background-color: #ff69b4;
+  color: white;
+}
 
-    // Move title + question under the photo
-    document.getElementById("card").insertAdjacentElement("afterend", title);
-    title.insertAdjacentElement("afterend", question);
+#noBtn {
+  background-color: #ddd;
+  color: #333;
+}
 
-    // Hide noBtn now that Yes is accepted
-    noBtn.style.display = "none";
+button:hover {
+  filter: brightness(1.05);
+}
 
-  }, 800); // matches the gif slide duration
-});
-
-noBtn.addEventListener("click", () => {
-  // Change the prompt text
-  if (noClicks < noPrompts.length) {
-    question.textContent = noPrompts[noClicks];
-    noClicks++;
-  } else {
-    question.textContent = "You know you want to say yes 😏";
+/* 📱 Mobile tweaks */
+@media (max-width: 480px) {
+  .card {
+    padding: 25px 20px;
   }
 
-  // Shrink NO button
-  noSize -= 0.15;
-  if (noSize < 0.4) noSize = 0.4; // don’t let it disappear completely
-  noBtn.style.transform = `scale(${noSize})`;
+  .gif {
+    width: 180px;
+  }
 
-  // Grow YES button
-  yesSize += 0.2;
-  yesBtn.style.transform = `scale(${yesSize})`;
-});
+  h1 {
+    font-size: 1.4rem;
+  }
 
+  p {
+    font-size: 0.95rem;
+  }
+}

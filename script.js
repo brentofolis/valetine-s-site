@@ -2,8 +2,6 @@ const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 const question = document.getElementById("question");
 const title = document.getElementById("title");
-const fireworks = document.getElementById("fireworks");
-const usPhoto = document.getElementById("usPhoto");
 const gif = document.getElementById("gif");
 
 let yesSize = 1;
@@ -19,41 +17,22 @@ const noPrompts = [
 ];
 
 yesBtn.addEventListener("click", () => {
-  // Grow YES
   yesSize += 0.3;
   yesBtn.style.transform = `scale(${yesSize})`;
 
-  // Slide the GIF away
+  // Slide GIF away
   if (gif) gif.classList.add("slide-out");
 
-  // Fireworks off (background only if still present)
-  if (fireworks) fireworks.style.display = "none";
-
-  // After GIF slides, show photo and place text under it
   setTimeout(() => {
-    const card = document.getElementById("card");
-
-    // Move photo into the card (above text)
-    card.insertBefore(usPhoto, title);
-
-    // Show photo (CSS animation will run)
-    usPhoto.style.display = "block";
-
-    // Update text
     title.textContent = "YAAAY!!! 🎉💖";
     question.textContent = "Happy Valentine’s Day 🥰";
 
-    // Ensure text is directly under the photo
-    card.insertBefore(title, question);
-    card.insertBefore(question, card.querySelector(".buttons"));
-
-    // Hide NO button now that YES is accepted
+    // Hide NO button
     noBtn.style.display = "none";
-  }, 300); // short delay feels snappy and clean
+  }, 300);
 });
 
 noBtn.addEventListener("click", () => {
-  // Change the prompt text
   if (noClicks < noPrompts.length) {
     question.textContent = noPrompts[noClicks];
     noClicks++;
@@ -61,12 +40,12 @@ noBtn.addEventListener("click", () => {
     question.textContent = "You know you want to say yes 😏";
   }
 
-  // Shrink NO button
+  // Shrink NO
   noSize -= 0.15;
-  if (noSize < 0.4) noSize = 0.4; // don’t let it disappear completely
+  if (noSize < 0.4) noSize = 0.4;
   noBtn.style.transform = `scale(${noSize})`;
 
-  // Grow YES button
+  // Grow YES
   yesSize += 0.2;
   yesBtn.style.transform = `scale(${yesSize})`;
 });
